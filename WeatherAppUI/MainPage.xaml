@@ -203,11 +203,13 @@
                        VerticalAlignment="Center"
                        FontFamily="Times New Roman"
                        FontSize="25"
-                       Foreground="#FFF" />
+                       Foreground="#FFF"
+                       Text="{Binding WeatherObject.Data[0].City_Name, Mode=OneWay}" />
         </Grid>
         
         <Grid Grid.Row="2">
-            <TextBox Style="{StaticResource RequestTextBoxStyle}" x:Name="RequestTextBox"
+            <TextBox Style="{StaticResource RequestTextBoxStyle}"
+                     x:Name="RequestTextBox"
                      Margin="0,0,0,25"
                      Padding="5,0,0,0"
                      Width="250"
