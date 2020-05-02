@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherAppUI.Models;
+using WeatherAppUI.ViewModels.ViewModelCommands;
 using WeatherAppUI.ViewModels.ViewModelParents;
+using Windows.UI.Xaml.Input;
 
 namespace WeatherAppUI.ViewModels
 {
@@ -34,12 +36,23 @@ namespace WeatherAppUI.ViewModels
             }
         }
 
+        public CommandBase<KeyRoutedEventArgs> GetRequestCommand { get; set; }
+
         public WeatherObjectViewModel()
         {
             this.WeatherObject = new WeatherObject
             {
                 Data = new List<Data>()
             };
+            this.GetRequestCommand = new CommandBase<KeyRoutedEventArgs>(GetRequest);
+        }
+
+        public void GetRequest(KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                this.Input = "SUCCESS";
+            }
         }
     }
 }
