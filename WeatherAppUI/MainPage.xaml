@@ -182,6 +182,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
@@ -207,7 +209,29 @@
                        Text="{Binding WeatherObject.Data[0].City_Name, Mode=OneWay}" />
         </Grid>
         
+        <!-- Row 2 -->
         <Grid Grid.Row="2">
+            <TextBlock x:Name="TemperatureTextBlock"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Times New Roman"
+                       FontSize="25"
+                       Foreground="#FFF"
+                       Text="{Binding WeatherObject.Data[0].Temp, Mode=OneWay}" />
+        </Grid>
+        
+        <!-- Row 3 -->
+        <Grid Grid.Row="3">
+            <TextBlock x:Name="DescriptionTextBlock"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Times New Roman"
+                       FontSize="25"
+                       Foreground="#FFF"
+                       Text="{Binding WeatherObject.Data[0].Weather.Description, Mode=OneWay}" />
+        </Grid>
+        
+        <Grid Grid.Row="4">
             <TextBox Style="{StaticResource RequestTextBoxStyle}"
                      x:Name="RequestTextBox"
                      Margin="0,0,0,25"

@@ -53,7 +53,7 @@ namespace WeatherAppUI.ViewModels
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
-                Request();
+                this.Request();
                 this.Input = string.Empty;
             }
         }

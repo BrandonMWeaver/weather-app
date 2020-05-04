@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace WeatherAppUI.Models
 {
+    class Weather
+    {
+        public string Description { get; set; }
+    }
+
     class Data
     {
         private string _cityName;
@@ -29,6 +34,19 @@ namespace WeatherAppUI.Models
                 this._stateCode = value;
             }
         }
+
+        private double _temperature;
+
+        public string Temp
+        {
+            get { return $"{this._temperature * 9 / 5 + 32:N0}\u00B0 F"; }
+            set
+            {
+                this._temperature = double.Parse(value);
+            }
+        }
+
+        public Weather Weather { get; set; }
     }
 
     class WeatherObject
