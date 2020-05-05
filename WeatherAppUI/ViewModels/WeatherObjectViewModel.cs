@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using WeatherAppUI.Models;
 using WeatherAppUI.ViewModels.ViewModelCommands;
 using WeatherAppUI.ViewModels.ViewModelParents;
+using Windows.Storage;
 using Windows.UI.Xaml.Input;
 
 namespace WeatherAppUI.ViewModels
@@ -62,6 +64,7 @@ namespace WeatherAppUI.ViewModels
             this.GetRequestCommand = new CommandBase<KeyRoutedEventArgs>(GetRequest);
             this.SetDefaultCommand = new CommandBase<object>(SetDefault);
             this.IsEnabled = false;
+            GetDefault();
         }
 
         public void GetRequest(KeyRoutedEventArgs e)
@@ -99,9 +102,28 @@ namespace WeatherAppUI.ViewModels
             }
         }
 
-        public void SetDefault(object sender)
+        public async void GetDefault()
         {
-            // TODO
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile file = await storageFolder.GetFileAsync("Data.txt");
+            string query = await FileIO.ReadTextAsync(file);
+            if (query != string.Empty)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync($"http://api.weatherbit.io/v2.0/current?city={query}" /* + KEY */);
+                    response.EnsureSuccessStatusCode();
+                    string data = await response.Content.ReadAsStringAsync();
+                    this.WeatherObject = JsonConvert.DeserializeObject<WeatherObject>(data);
+                }
+            }
+        }
+
+        public async void SetDefault(object sender)
+        {
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile file = await storageFolder.CreateFileAsync("Data.txt", CreationCollisionOption.OpenIfExists);
+            await FileIO.WriteTextAsync(file, this.WeatherObject.Data[0].City_Name);
             this.IsEnabled = false;
         }
     }
