@@ -38,7 +38,20 @@ namespace WeatherAppUI.ViewModels
             }
         }
 
+        private bool _isEnabled;
+
+        public bool IsEnabled
+        {
+            get { return this._isEnabled; }
+            set
+            {
+                this._isEnabled = value;
+                OnPropertyChanged(nameof(this.IsEnabled));
+            }
+        }
+
         public CommandBase<KeyRoutedEventArgs> GetRequestCommand { get; set; }
+        public CommandBase<object> SetDefaultCommand { get; set; }
 
         public WeatherObjectViewModel()
         {
@@ -47,6 +60,8 @@ namespace WeatherAppUI.ViewModels
                 Data = new List<Data>()
             };
             this.GetRequestCommand = new CommandBase<KeyRoutedEventArgs>(GetRequest);
+            this.SetDefaultCommand = new CommandBase<object>(SetDefault);
+            this.IsEnabled = false;
         }
 
         public void GetRequest(KeyRoutedEventArgs e)
@@ -69,6 +84,7 @@ namespace WeatherAppUI.ViewModels
                     string data = await response.Content.ReadAsStringAsync();
                     this.WeatherObject = JsonConvert.DeserializeObject<WeatherObject>(data);
                 }
+                this.IsEnabled = true;
             }
             catch(Exception e)
             {
@@ -81,6 +97,12 @@ namespace WeatherAppUI.ViewModels
                     Data = data
                 };
             }
+        }
+
+        public void SetDefault(object sender)
+        {
+            // TODO
+            this.IsEnabled = false;
         }
     }
 }

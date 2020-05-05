@@ -232,24 +232,49 @@
         </Grid>
         
         <Grid Grid.Row="4">
-            <TextBox Style="{StaticResource RequestTextBoxStyle}"
-                     x:Name="RequestTextBox"
-                     Margin="0,0,0,25"
-                     Padding="5,0,0,0"
-                     Width="250"
-                     Height="50"
-                     HorizontalAlignment="Center"
-                     VerticalAlignment="Bottom"
-                     FontFamily="Times New Roman"
-                     FontSize="25"
-                     PlaceholderText="City, State"
-                     Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <interactivity:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="KeyDown">
-                        <core:InvokeCommandAction Command="{Binding GetRequestCommand}" />
-                    </core:EventTriggerBehavior>
-                </interactivity:Interaction.Behaviors>
-            </TextBox>
+            <Grid Margin="0,0,0,25"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         Style="{StaticResource RequestTextBoxStyle}"
+                         x:Name="RequestTextBox"
+                         Padding="5,0,0,0"
+                         Width="250"
+                         Height="50"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Bottom"
+                         FontFamily="Times New Roman"
+                         FontSize="25"
+                         PlaceholderText="City, State"
+                         Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="KeyDown">
+                            <core:InvokeCommandAction Command="{Binding GetRequestCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </TextBox>
+                <Button Grid.Column="1"
+                        x:Name="CityButton"
+                        Margin="0,0,25,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Height="50"
+                        FontFamily="Times New Roman"
+                        FontSize="25"
+                        Background="#690069"
+                        Content="Set Default"
+                        IsEnabled="{Binding IsEnabled, Mode=OneWay}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Click">
+                            <core:InvokeCommandAction Command="{Binding SetDefaultCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
     
