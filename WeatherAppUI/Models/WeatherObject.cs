@@ -17,23 +17,14 @@ namespace WeatherAppUI.Models
 
         public string City_Name
         {
-            get { return $"{this._cityName}, {this._stateCode}"; }
+            get { return $"{this._cityName}, {this.State_Code}"; }
             set
             {
                 this._cityName = value;
             }
         }
 
-        private string _stateCode;
-
-        public string State_Code
-        {
-            get { return this._stateCode; }
-            set
-            {
-                this._stateCode = value;
-            }
-        }
+        public string State_Code { get; set; }
 
         private double _temperature;
 
